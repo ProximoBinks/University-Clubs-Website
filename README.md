@@ -7,10 +7,10 @@
 Follow these steps to set up and launch your website:
 
 1. **Download and Launch Docker**
-    - Download Docker from its official website and run the application.
+    - [Download Docker](https://www.docker.com/products/docker-desktop/) from its official website and run the application.
 
 2. **Open Project Folder in VSCode**
-    - Open the folder containing the project files in Visual Studio Code.
+    - Open the folder containing the project files in Visual Studio Code. You can either clone this GitHub repo or dowwload it as a zip file.
 
 3. **Build Dev Container**
     - Press `F1` and execute the command `Dev Containers: Rebuild and Reopen in Container`.
