@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="stylesheets/main_style.css"/>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script type="text/javascript" src="javascripts/profile.js" defer></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/59a3f0812f.js" crossorigin="anonymous"></script>
+    <title>Profile</title>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <i class="fa-solid fa-bars" v-on:click="toggleSideBar"></i>
+            <h1 class="logo"><a href="/">University Clubs</a></h1>
+            <nav class="nav-link">
+                <a href="/">Home</a>
+                <a href="/about.html">About</a>
+                <a v-on:click="createClubLogin">Create Club</a>
+                <template v-if="loggedIn">
+                    <a href="/profile.html">Profile</a>
+                    <button class="pure-button login-button" type="button" v-on:click="logout">Logout</button>
+                </template>
+                <template v-else>
+                    <button class="pure-button login-button" type="button" v-on:click="toLogin">Login</button>
+                </template>
+            </nav>
+        </header>
+        <div class="sidebar nav-link" v-if="side_active">
+            <a href="/">Home</a>
+            <a href="/about.html">About</a>
+            <a v-on:click="createClubLogin">Create Club</a>
+            <div class="sidebar-login">
+                <template v-if="loggedIn">
+                    <a href="/profile.html">Profile</a>
+                </template>
+                <template v-if="loggedIn">
+                    <button class="pure-button logout-button" type="button" v-on:click="logout">Logout</button>
+                </template>
+                <template v-else>
+                    <a href="/login.html" class="sidebar-login-button">Login</a>
+                </template>
+            </div>
+        </div>
+
+        <main>
+            <div class="profile-container">
+                <h1>Welcome, {{ firstName }} {{ lastName }}</h1>
+                <p>Email: {{ email }}</p>
+                <div v-if="dateOfBirth">
+                    <p>Date of Birth: {{ dateOfBirth }}</p>
+                </div>
+                <div v-if="bio">
+                    <p>Bio: {{ bio }}</p>
+                </div>
+                <button type="button" class="pure-button" v-on:click="editProfile">Edit Profile</button>
+                <div v-if="editingProfile">
+                    <form v-on:submit.prevent="saveProfile">
+                        <div class="form-field">
+                            <label for="dateOfBirth">Date of Birth:</label>
+                            <input type="date" id="dateOfBirth" v-model="newDateOfBirth" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="firstName">First Name:</label>
+                            <input type="text" id="firstName" v-model="newFirstName" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="lastName">Last Name:</label>
+                            <input type="text" id="lastName" v-model="newLastName" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="bio">Bio:</label>
+                            <textarea id="bio" v-model="newBio" rows="4"></textarea>
+                        </div>
+                        <button class="pure-button" type="submit">Save</button>
+                        <button type="button" class="pure-button" v-on:click="cancelEditProfile">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

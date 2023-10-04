@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/main_style.css"/>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script type="text/javascript" src="js/main.js" defer></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/59a3f0812f.js" crossorigin="anonymous"></script>
+    <title>Login</title>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <i class="fa-solid fa-bars" v-on:click="toggleSideBar"></i>
+            <h1 class="logo"><a href="/">University Clubs</a></h1>
+            <nav class="nav-link">
+                <a href="/">Home</a>
+                <a href="/about.html">About</a>
+                <a href="/contact.html">Contact Us</a>
+                <button class="pure-button login-button" type="button" v-on:click="toLogin">Login</button>
+            </nav>
+        </header>
+        <div class="sidebar nav-link" v-if="side_active">
+            <a href="/">Home</a>
+            <a href="/about.html">About</a>
+            <a href="/contact.html">Contact Us</a>
+            <div class="sidebar-login">
+                <a href="/login.html" class="sidebar-login-button">Login</a>
+            </div>
+        </div>
+
+        <main>
+            <div class="login">
+                <h1>Register</h1>
+                <p>Please fill in the fields below:</p>
+
+                <div class="form-container">
+                    <form action="register.php" method="post">
+                        <div class="form-field">
+                            <input type="text" id="first-name" name="first-name" required>
+                            <label for="first-name">First Name:</label>
+                        </div>
+                        <div class="form-field">
+                            <input type="text" id="last-name" name="last-name" required>
+                            <label for="last-name">Last Name:</label>
+                        </div>
+                        <div class="form-field">
+                            <input type="email" id="email" name="email" required>
+                            <label for="email">Email:</label>
+                        </div>
+                        <div class="form-field">
+                            <input type="password" id="password" name="password" required>
+                            <label for="password">Password:</label>
+                        </div>
+                        <input type="submit" value="Register" class="button submit-button">
+                    </form>
+                </div>
+
+                <p>Already have an account? <a href="login.html">Login</a></p>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

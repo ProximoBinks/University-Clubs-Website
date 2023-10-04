@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="stylesheets/main_style.css"/>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script type="text/javascript" src="javascripts/main.js" defer></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/59a3f0812f.js" crossorigin="anonymous"></script>
+    <title>University Clubs</title>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <i class="fa-solid fa-bars" v-on:click="toggleSideBar"></i>
+            <h1 class="logo"><a href="/">University Clubs</a></h1>
+            <nav class="nav-link">
+                <a href="/">Home</a>
+                <a href="/about.html">About</a>
+                <a v-on:click="createClubLogin">Create Club</a>
+                <template v-if="loggedIn">
+                    <a href="/profile.html">Profile</a>
+                    <button class="pure-button login-button" type="button" v-on:click="logout">Logout</button>
+                </template>
+                <template v-else>
+                    <button class="pure-button login-button" type="button" v-on:click="toLogin">Login</button>
+                </template>
+            </nav>
+        </header>
+        <div class="sidebar nav-link" v-if="side_active">
+            <a href="/">Home</a>
+            <a href="/about.html">About</a>
+            <a v-on:click="createClubLogin">Create Club</a>
+            <div class="sidebar-login">
+                <template v-if="loggedIn">
+                    <a href="/profile.html">Profile</a>
+                </template>
+                <template v-if="loggedIn">
+                    <button class="pure-button logout-button" type="button" v-on:click="logout">Logout</button>
+                </template>
+                <template v-else>
+                    <a href="/login.html" class="sidebar-login-button">Login</a>
+                </template>
+            </div>
+        </div>
+
+        <main>
+            <div class="main-content current-events">
+                <div class="event-list">
+                    <h2>UPCOMING EVENTS</h2>
+                    <hr>
+                    <div v-for="event_index in events" class="event">
+                        <div class="event-title">
+                            <img v-bind:src="event_index.image_url">
+                            <h2>{{ event_index.club_name }}</h2>
+                        </div>
+                        <p>{{ event_index.post_title }}</p>
+                        <button type="button" class="pure-button" v-on:click="toClub(event_index.page_url)">View Club</button>
+                    </div>
+                </div>
+            </div>
+            <div class="filters">
+                <input class="search" type="text" v-model="s_text" placeholder="Search.." v-on:input="doSearch">
+            </div>
+            <div class="club-list">
+                <div v-for="club_index in clubs">
+                    <div v-if:="club_index.shown" class="main-content club">
+                        <div class="club-title">
+                            <img v-bind:src="club_index.image_url">
+                            <h2>{{ club_index.club_name }}</h2>
+                        </div>
+                        <p>{{ club_index.club_info }}</p>
+                        <button type="button" class="pure-button"  v-on:click="toClub(club_index.page_url)">View Club</button>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+</body>
+</html>

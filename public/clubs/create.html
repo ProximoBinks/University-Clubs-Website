@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/main_style.css"/>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script type="text/javascript" src="/javascripts/main.js" defer></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/59a3f0812f.js" crossorigin="anonymous"></script>
+    <title>Login</title>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <i class="fa-solid fa-bars" v-on:click="toggleSideBar"></i>
+            <h1 class="logo"><a href="/">University Clubs</a></h1>
+            <nav class="nav-link">
+                <a href="/">Home</a>
+                <a href="/about.html">About</a>
+                <a v-on:click="createClubLogin">Create Club</a>
+                <template v-if="loggedIn">
+                    <a href="/profile.html">Profile</a>
+                    <button class="pure-button login-button" type="button" v-on:click="logout">Logout</button>
+                </template>
+                <template v-else>
+                    <button class="pure-button login-button" type="button" v-on:click="toLogin">Login</button>
+                </template>
+            </nav>
+        </header>
+        <div class="sidebar nav-link" v-if="side_active">
+            <a href="/">Home</a>
+            <a href="/about.html">About</a>
+            <a v-on:click="createClubLogin">Create Club</a>
+            <div class="sidebar-login">
+                <template v-if="loggedIn">
+                    <a href="/profile.html">Profile</a>
+                </template>
+                <template v-if="loggedIn">
+                    <button class="pure-button logout-button" type="button" v-on:click="logout">Logout</button>
+                </template>
+                <template v-else>
+                    <a href="/login.html" class="sidebar-login-button">Login</a>
+                </template>
+            </div>
+        </div>
+
+        <main>
+            <div class="create-club-container">
+                <h1>Create New Club</h1>
+                <div v-if="!incorrect_fields.success">
+                    <div class="form-field">
+                        <label>Club Name</label>
+                        <input type="text" id="club-create-name" name="name" placeholder="Only enter letters, numbers and spaces, character limit of 63" required v-model="c_create_name">
+                    </div>
+                    <div class="form-field">
+                        <label>Club Description</label>
+                        <textarea type="text" id="club-create-description" name="description" placeholder="Limit of 800 characters" required v-model="c_create_text"></textarea>
+                    </div>
+                    <div v-if="incorrect_fields.value">
+                        <p>Some information was invalid</p>
+                    </div>
+                    <div class="form-field">
+                        <button type="submit" class="submit-button" v-on:click="addClub">Next</button>
+                    </div>
+                </div>
+                <form action="/create-club-final" method="post" enctype="multipart/form-data" v-if="incorrect_fields.success">
+                    <div class="form-field-image">
+                        <label>Club Profile Picture</label>
+                        <input type="file" id="img" name="img" accept="image/*" required>
+                    </div>
+                    <div class="form-field">
+                        <button type="submit" class="submit-button">Create Club!</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

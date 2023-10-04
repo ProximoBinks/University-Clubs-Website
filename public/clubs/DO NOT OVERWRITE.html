@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/main_style.css"/>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script type="text/javascript" src="/javascripts/main.js" defer></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/59a3f0812f.js" crossorigin="anonymous"></script>
+    <title>University Clubs</title>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <i class="fa-solid fa-bars" v-on:click="toggleSideBar"></i>
+            <h1 class="logo"><a href="/">University Clubs</a></h1>
+            <nav class="nav-link">
+                <a href="/">Home</a>
+                <a href="/about.html">About</a>
+                <a v-on:click="createClubLogin">Create Club</a>
+                <template v-if="loggedIn">
+                    <a href="/profile.html">Profile</a>
+                    <button class="pure-button login-button" type="button" v-on:click="logout">Logout</button>
+                </template>
+                <template v-else>
+                    <button class="pure-button login-button" type="button" v-on:click="toLogin">Login</button>
+                </template>
+            </nav>
+        </header>
+        <div class="sidebar nav-link" v-if="side_active">
+            <a href="/">Home</a>
+            <a href="/about.html">About</a>
+            <a v-on:click="createClubLogin">Create Club</a>
+            <div class="sidebar-login">
+                <template v-if="loggedIn">
+                    <a href="/profile.html">Profile</a>
+                </template>
+                <template v-if="loggedIn">
+                    <button class="pure-button logout-button" type="button" v-on:click="logout">Logout</button>
+                </template>
+                <template v-else>
+                    <a href="/login.html" class="sidebar-login-button">Login</a>
+                </template>
+            </div>
+        </div>
+
+        <main>
+            <div class="main-content current-events">
+                <div class="club-page-info">
+                    <img src=/images/uploads/` + req.file.filename + `>
+                    <h3 id="THIS-IS-CLUB-NAME">` + tempClub.club_name + `</h3>
+                    <p>` + tempClub.club_info + `</p>
+                    <button type="button" class="pure-button join-button" v-on:click="joinClub(curr_club[0].id)" v-if="!curr_enrolment.isMember">Join Club</button>
+                    <button type="button" class="pure-button join-button" v-on:click="leaveClub(curr_club[0].id)" v-if="curr_enrolment.isMember && !curr_enrolment.isManager">Leave Club</button>
+                    <button type="button" class="pure-button delete-button" v-on:click="deleteClub(curr_club[0].id)" v-if="curr_enrolment.isManager">Delete Club</button>
+                </div>
+            </div>
+            <div class="main-content new-update" v-if="curr_enrolment.isManager">
+                <h2>Create new post</h2>
+                <div class="new-update-input">
+                    <label>Post Title</label>
+                    <input id="update-title" type="text" placeholder="Post Title" v-model="tempPost.post_title"/>
+                </div>
+                <div class="new-update-input">
+                    <label>Post Description</label>
+                    <textarea id="post-content" placeholder="Details..." v-model="tempPost.post_info"></textarea>
+                </div>
+                <div class="new-update-input half-width">
+                    <label>Date of Event (optional)</label>
+                    <input id="date-input" type="datetime-local" v-bind:min="date" v-model="tempPost.event_time"/>
+                </div>
+                <div class="new-update-input half-width">
+                    <label class="checkbox-label">Private post</label>
+                    <input id="private-update" type="checkbox" name="Private post" v-model="tempPost.isPrivate"/>
+                </div>
+                <div class="new-update-input" v-if="incorrect_fields.value">
+                    <p>Some information was invalid</p>
+                </div>
+                <div class="new-update-input">
+                    <button type="button" class="pure-button" v-on:click="newPost">Create Post</button>
+                </div>
+            </div>
+            <div class="main-content show-users" v-if="curr_enrolment.isManager">
+                <button type="button" class="pure-button" v-on:click="showUsers(curr_club[0].id)" v-if="!usersShown">Show users</button>
+                <button type="button" class="pure-button" v-on:click="hideUsers" v-if="usersShown">Hide users</button>
+                <table class="admin-table" v-if="usersShown">
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                    </tr>
+                    <tr v-for="user_index in club_users" :key="user_index.id">
+                        <td>{{ user_index.first_name }}</td>
+                        <td>{{ user_index.last_name }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="event-page-list">
+                <div v-for="event_index in club_events">
+                    <div class="main-content event-page" v-if="!event_index.isPrivate || curr_enrolment.isMember">
+                        <div class="event-page-title">
+                            <h2>{{ event_index.post_title }}</h2>
+                            <p>{{ (new Date(event_index.post_created)).toLocaleString() }}</p>
+                        </div>
+                        <p>{{ event_index.post_info }}</p>
+                        <p class="event-page-time" v-if="event_index.event_time">Event time: {{ (new Date(event_index.event_time)).toLocaleString() }}</p>
+                        <button type="button" class="pure-button" v-if="event_index.event_time" v-on:click="doRSVP(event_index.id)">RSVP</button>
+                        <p v-if="event_index.hasRSVP">You have already RSVP'd!</p>
+                        <button type="button" class="pure-button delete-button" v-on:click="deletePost(event_index.id)" v-if="curr_enrolment.isManager">Delete Post</button>
+                        <button type="button" class="pure-button" v-on:click="showRSVPs(event_index.id)" v-if="!event_index.showUsers && curr_enrolment.isManager">Show users</button>
+                        <button type="button" class="pure-button" v-on:click="hideRSVPs(event_index.id)" v-if="event_index.showUsers">Hide users</button>
+                        <table class="admin-table" v-if="event_index.showUsers">
+                            <tr>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                            </tr>
+                            <tr v-for="user_index in event_index.rsvps" :key="user_index.id">
+                                <td>{{ user_index.first_name }}</td>
+                                <td>{{ user_index.last_name }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="stylesheets/other_style.css"/>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script type="text/javascript" src="javascripts/main.js" defer></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/59a3f0812f.js" crossorigin="anonymous"></script>
+    <title>University Clubs</title>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <i class="fa-solid fa-bars" v-on:click="toggleSideBar"></i>
+            <h1 class="logo"><a href="/">University Clubs</a></h1>
+            <nav class="nav-link">
+                <a href="/">Home</a>
+                <a href="/about.html">About</a>
+                <a v-on:click="createClubLogin">Create Club</a>
+                <template v-if="loggedIn">
+                    <a href="/profile.html">Profile</a>
+                    <button class="pure-button login-button" type="button" v-on:click="logout">Logout</button>
+                </template>
+                <template v-else>
+                    <button class="pure-button login-button" type="button" v-on:click="toLogin">Login</button>
+                </template>
+            </nav>
+        </header>
+        <div class="sidebar nav-link" v-if="side_active">
+            <a href="/">Home</a>
+            <a href="/about.html">About</a>
+            <a v-on:click="createClubLogin">Create Club</a>
+            <div class="sidebar-login">
+                <template v-if="loggedIn">
+                    <a href="/profile.html">Profile</a>
+                </template>
+                <template v-if="loggedIn">
+                    <button class="pure-button logout-button" type="button" v-on:click="logout">Logout</button>
+                </template>
+                <template v-else>
+                    <a href="/login.html" class="sidebar-login-button">Login</a>
+                </template>
+            </div>
+        </div>
+
+        <main>
+            <div class="header-gap"></div>
+            <h1>About Us</h1>
+            <div class="blue-line"></div>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Temporibus iusto voluptatum quasi omnis sed, cupiditate unde, inventore nostrum voluptatem aspernatur soluta assumenda. Ut hic, nam porro velit ipsa maiores quaerat. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cum, eos, explicabo voluptas sunt corporis tempore, ipsum provident expedita deserunt labore adipisci. Atque vitae quaerat quas temporibus sequi delectus reprehenderit sapiente! Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt eum sequi quis ullam, quod reiciendis nesciunt nostrum laboriosam exercitationem ipsa sapiente aspernatur ex quae corrupti maxime, odit praesentium fugiat maiores.</p>
+            <div class="image-gallery">
+                <a href="image0.html" class="image-link">
+                    <img src="images/image0.png" alt="Image 0" class="gallery-image">
+                    <div class="image-caption">
+                        <span class="image-text">Image 0</span>
+                    </div>
+                </a>
+                <a href="image1.html" class="image-link">
+                    <img src="images/image1.png" alt="Image 1" class="gallery-image">
+                    <div class="image-caption">
+                        <span class="image-text">Image 1</span>
+                    </div>
+                </a>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
