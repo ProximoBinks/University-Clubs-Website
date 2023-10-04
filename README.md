@@ -1,5 +1,7 @@
 # How to Set Up Your University Club's Website
 
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ProximoBinks/Discord-Timestamp-Generator/blob/main/LICENSE)
+
 ## Setup Instructions
 
 Follow these steps to set up and launch your website:
@@ -41,3 +43,11 @@ Follow these steps to set up and launch your website:
 
 - **Creating and Managing Clubs**
   - Clubs can only be created by logged-in users through a button at the top of the webpage. Club creators become managers by default. Initially, the database contains no clubs, allowing you to test the system by creating or deleting as many clubs as you wish.
+
+## License
+
+This project is licensed under the MIT License.
+
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![Javascript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
