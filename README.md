@@ -1,6 +1,6 @@
 # How to Set Up Your University Club's Website
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ProximoBinks/Discord-Timestamp-Generator/blob/main/LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ProximoBinks/University-Clubs-Website/blob/main/LICENSE)
 
 ## Setup Instructions
 
