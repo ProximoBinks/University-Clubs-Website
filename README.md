@@ -44,6 +44,10 @@ Follow these steps to set up and launch your website:
 - **Creating and Managing Clubs**
   - Clubs can only be created by logged-in users through a button at the top of the webpage. Club creators become managers by default. Initially, the database contains no clubs, allowing you to test the system by creating or deleting as many clubs as you wish.
 
+## Collaborators
+
+This project was made as a collaborative effort between Elliot Koh, William Gambling and Sheryl Li as a part of our studies at the University of Adelaide
+
 ## License
 
 This project is licensed under the MIT License.
