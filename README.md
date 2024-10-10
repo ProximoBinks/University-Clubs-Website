@@ -1,6 +1,6 @@
 ## Collaborators
 
-This project was made as a collaborative effort between Elliot Koh, William Gambling and Sheryl Li as a part of our studies at the University of Adelaide
+This project was made as a collaborative effort between Elliot Koh, William Gambling and Kei as a part of our studies at the University of Adelaide
 
 # How to Set Up Your University Club's Website
 
